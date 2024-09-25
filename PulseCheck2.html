@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Strickland Social</title>
+    <style>
+    /* making sure the style is staying consistent */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin:auto;
+            font-family:cursive;
+        }
+        /* centers the content  */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        /* ensure that all images have the same size, while making them spin around */
+        img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border: 2px solid aquamarine;
+            border-radius: 8px;
+            animation: spinAndMove 2s linear infinite;
+        }
+        /* duration of the animation while moving left to right */
+        @keyframes spinAndMove {
+            0% {
+                transform: translateX(-100px) rotate(0deg);
+            }
+            50% {
+                transform: translateX(100px) rotate(180deg);
+            }
+            100% {
+                transform: translateX(-100px) rotate(360deg);
+            }
+        }
+        
+        a {
+            text-decoration:none;
+            color:darkmagenta;
+        }
+        a:hover {
+            text-decoration:underline;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- first --> ,
+         <!-- Generating image -->
+        <a href="https://p16-va.lemon8cdn.com/tos-maliva-v-ac5634-us/oAEYG2BzPBMQCiN773ABSoA6EYgfBQhAYIADii~tplv-tej9nj120t-origin.webp">
+            <img src="https://p16-va.lemon8cdn.com/tos-maliva-v-ac5634-us/oAEYG2BzPBMQCiN773ABSoA6EYgfBQhAYIADii~tplv-tej9nj120t-origin.webp" alt="Picture 1" class="project-image">
+            Pick Me!
+        </a>
+        <!-- second -->
+         <!-- Generating image -->
+        <a href="https://i.pinimg.com/474x/20/2c/c2/202cc2bf18edb7c33dbd90593abb203e.jpg">
+            <img src="https://i.pinimg.com/474x/20/2c/c2/202cc2bf18edb7c33dbd90593abb203e.jpg" alt="Picture 2" class="project-image">
+            Choose Me!
+        </a>
+        <!--  third -->
+        <!-- Generating image -->
+        <a href="https://i.pinimg.com/736x/28/2f/13/282f139295b7659c01e985e455f12c6b.jpg">
+            <img src="https://i.pinimg.com/736x/28/2f/13/282f139295b7659c01e985e455f12c6b.jpg" alt="Project 3 Image" class="project-image" />
+            Love me!
+        </a>
+    </main>
+</body>
+</html>

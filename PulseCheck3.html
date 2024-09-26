@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Strickland Social</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #9c27b0, #e91e63);
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .image-container:hover .image-overlay {
+            opacity: 1;
+        }
+        .image-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .likes-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        form {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        select, textarea, button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <main id="image-gallery"></main>
+    <form id="feedback-form">
+        <select id="feedback-type">
+            <option value="General Comment">General Comment</option>
+            <option value="App Enhancement">App Enhancement</option>
+            <option value="General Feedback">General Feedback</option>
+        </select>
+        <textarea id="comment" placeholder="Enter your feedback here" rows="4"></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+
+    <script>
+        const images = [
+            { id: 1, src: "https://p16-va.lemon8cdn.com/tos-maliva-v-ac5634-us/oAEYG2BzPBMQCiN773ABSoA6EYgfBQhAYIADii~tplv-tej9nj120t-origin.webp", alt: "Picture 1", text: "Pick Me!", hidden: false, likes: 0 },
+            { id: 2, src: "https://i.pinimg.com/474x/20/2c/c2/202cc2bf18edb7c33dbd90593abb203e.jpg", alt: "Picture 2", text: "Choose Me!", hidden: false, likes: 0 },
+            { id: 3, src: "https://i.pinimg.com/736x/28/2f/13/282f139295b7659c01e985e455f12c6b.jpg", alt: "Project 3 Image", text: "Love me!", hidden: false, likes: 0 },
+        ];
+
+        function renderImages() {
+            const gallery = document.getElementById('image-gallery');
+            gallery.innerHTML = '';
+            images.forEach(img => {
+                if (!img.hidden) {
+                    const container = document.createElement('div');
+                    container.className = 'image-container';
+                    container.innerHTML = `
+                        <img src="${img.src}" alt="${img.alt}">
+                        <div class="image-overlay">
+                            <span>${img.text}</span>
+                            <div class="image-actions">
+                                <button class="action-button" onclick="handleLike(${img.id})">❤️</button>
+                                <button class="action-button" onclick="handleDislike(${img.id})">👎</button>
+                                <button class="action-button" onclick="handleHide(${img.id})">👁️</button>
+                                <button class="action-button" onclick="handleShare(${img.id})">📤</button>
+                            </div>
+                        </div>
+                        <span class="likes-counter">${img.likes} likes</span>
+                    `;
+                    gallery.appendChild(container);
+                }
+            });
+        }
+
+        function handleLike(id) {
+            const img = images.find(img => img.id === id);
+            if (img) {
+                img.likes++;
+                renderImages();
+            }
+        }
+
+        function handleDislike(id) {
+            const img = images.find(img => img.id === id);
+            if (img && img.likes > 0) {
+                img.likes--;
+                renderImages();
+            }
+        }
+
+        function handleHide(id) {
+            const img = images.find(img => img.id === id);
+            if (img) {
+                img.hidden = true;
+                renderImages();
+            }
+        }
+
+        function handleShare(id) {
+            const img = images.find(img => img.id === id);
+            if (img) {
+                alert(`Sharing ${img.alt}: ${img.src}`);
+            }
+        }
+
+        document.getElementById('feedback-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const feedbackType = document.getElementById('feedback-type').value;
+            const comment = document.getElementById('comment').value;
+            alert(`Feedback submitted - Type: ${feedbackType}, Comment: ${comment}`);
+            document.getElementById('comment').value = '';
+            document.getElementById('feedback-type').value = 'General Comment';
+        });
+
+        renderImages();
+    </script>
+</body>
+</html>
